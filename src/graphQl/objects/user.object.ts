@@ -5,8 +5,10 @@ import { bookObject } from "./book.object";
 export class userObject {
     @Field(() => Int, { nullable: true })
     id?: number
+
     @Field(() => String, { nullable: true })
     name?: string
+    
     @Field(() => [bookObject], { nullable: true })
     books?: bookObject[];
 }

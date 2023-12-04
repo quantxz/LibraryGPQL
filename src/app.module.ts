@@ -3,6 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { userResolver } from './graphQl/Resolvers/users-resolvers';
 import { bookResolver } from './graphQl/Resolvers/books.resolvers';
+import { chaptersResolver } from './graphQl/Resolvers/chapters.resolvers';
 
 @Module({
   imports: [
@@ -11,6 +12,6 @@ import { bookResolver } from './graphQl/Resolvers/books.resolvers';
       autoSchemaFile: true
     }),
   ],
-  providers: [userResolver, bookResolver]
+  providers: [userResolver, bookResolver, chaptersResolver]
 })
 export class AppModule {}

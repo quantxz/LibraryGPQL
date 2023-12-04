@@ -22,9 +22,12 @@ export class userResolver {
                     author: args.name
                 }
             })
-
+            console.log({
+                ...user,
+                books
+            })
             return {
-                user,
+                ...user,
                 books
             };
         } catch(error) {

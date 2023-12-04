@@ -4,16 +4,26 @@ import { bookInput } from "../inputs/book.input";
 import { PrismaService } from "src/prisma/prisma.service";
 
 export class bookResolver {
-    @Query(() => bookObject)
-    async findBookByTitle(@Args('data') args: bookInput) {
+    //arrumar
+    @Query(() => [bookObject])
+    async findBooksByTitle(@Args('data') args: bookInput) {
         try {
-            const book = await PrismaService.book.findFirst({
+            const book = await PrismaService.book.findMany({
                 where: {
                     title: args.title
                 }
             })
-
-            return book
+           
+            const chapter = await PrismaService.chapter.findMany({
+                where: {
+                    bookTitle: args.title
+                }
+            })
+            
+            return {
+                book,
+                chapter
+            }
         } catch(error) {
             console.log(error)
             throw new error
@@ -23,13 +33,23 @@ export class bookResolver {
     @Query(() => bookObject)
     async findBookByAuthor(@Args('data') args: bookInput) {
         try {
-            const book = await PrismaService.book.findFirst({
+            const books = await PrismaService.book.findMany({
                 where: {
                     author: args.author
                 }
             })
+            const book = books[2];
 
-            return book
+            const chapter = await PrismaService.chapter.findMany({
+                where: {
+                    bookTitle: book?.title
+                }
+            })
+            
+            return {
+                ...books,
+                chapter
+            }
         } catch(error) {
             console.log(error)
             throw new error
