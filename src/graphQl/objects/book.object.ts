@@ -1,16 +1,25 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { userObject } from "./user.object";
+import { chapterObject } from "./chapter.object";
 
 @ObjectType()
 export class bookObject {
     @Field(() => Int, { nullable: true })
-    id?: number
+    id?: number;
+
     @Field()
-    author?: string
+    author?: string;
+
     @Field()
-    title?: string
+    title?: string;
+
     @Field(() => Int, { nullable: true })
-    chaptersNumber?: number
+    chaptersNumber?: number;
+
     @Field(() => userObject, { nullable: true })
     authorRelation?: userObject;
+
+    @Field(() => [chapterObject], { nullable: true })
+    chapter?: chapterObject[];
+
 }

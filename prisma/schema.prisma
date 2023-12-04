@@ -17,11 +17,11 @@ model User {
 model Book {
   id              Int       @default(autoincrement()) @id 
   author          String
-  title           String
+  title           String    @unique
   chaptersNumber  Int      
   chapters        Chapter[]
 
-  authorRelation User     @relation(fields: [author], references: [name])
+  authorRelation  User     @relation(fields: [author], references: [name])
   @@map("book")
 }
 
@@ -29,9 +29,9 @@ model Chapter {
   id              Int     @default(autoincrement()) @id
   chapterNumber   Int
   title           String  
+  bookTitle       String  
 
-  bookId          Int
-  book            Book    @relation(fields: [bookId], references: [id])
+  book            Book    @relation(fields: [bookTitle], references: [title])
 
   @@map("chapter")
 }
